@@ -2,6 +2,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:onboardx_tnb/screens/myjourney/my_journey_screen.dart';
 import 'package:onboardx_tnb/screens/setting/front_page.dart';
 
 
@@ -53,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
-      bottomNavigationBar: _buildBottomNavBar(primaryColor),
     );
   }
 
@@ -264,7 +264,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildSmallActionCompact(Widget icon, String label, Color color) {
     return GestureDetector(
       onTap: () {
-        // TODO: handle navigation
+        if (label == "Task\nManager") {
+          // *** Change this line to navigate to DocumentUploadScreen1 ***
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const MyJourneyScreen(), // <-- Corrected screen
+            ),
+          );
+        }
+        // You can add other navigation logic here for other labels if needed
       },
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -412,35 +421,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
   }
-
-  // Bottom Navigation Bar
-  Widget _buildBottomNavBar(Color primaryColor) {
-    return CurvedNavigationBar(
-      backgroundColor: Colors.transparent,
-      color: const Color.fromRGBO(224, 124, 124, 1),
-      buttonBackgroundColor: primaryColor,
-      height: 60,
-      items: const <Widget>[
-        Icon(Icons.home, size: 30, color: Colors.white),
-        Icon(Icons.person, size: 30, color: Colors.white),
-        Icon(Icons.settings, size: 30, color: Colors.white),
-      ],
-      index: _selectedIndex,
-      onTap: (index) {
-        if (index == 2) {
-          // Settings icon tapped -> open SettingsPage
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const SettingsPage()),
-          );
-        } 
-        else {
-          // Home (or other) -> handle selection normally
-          _onItemTapped(index);
-        }
-      },
-      letIndexChange: (index) => true,
-    );
-  }
-
 }

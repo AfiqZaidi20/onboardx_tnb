@@ -1,7 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:onboardx_tnb/screens/setting/front_page.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:onboardx_tnb/screens/myjourney/my_journey_screen.dart';
 import 'package:onboardx_tnb/screens/home/home_screen.dart';
 
@@ -9,11 +8,18 @@ class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
 
   @override
-  State<BottomNavBar> createState() => _BottomNavBar();
+  State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
-class _BottomNavBar extends State<BottomNavBar> {
+class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
+
+  // Pastikan constructors pada HomeScreen, MyJourneyScreen, SettingsPage adalah const jika boleh
+  final List<Widget> _screens = const [
+    HomeScreen(),         // Icon(Icons.home) -> HomeScreen
+    MyJourneyScreen(),    // Icon(Icons.flag) -> MyJourneyScreen
+    SettingsPage(),       // Icon(Icons.settings) -> SettingsPage (front_page.dart)
+  ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -26,17 +32,15 @@ class _BottomNavBar extends State<BottomNavBar> {
     const primaryColor = Color.fromRGBO(224, 124, 124, 1);
 
     return Scaffold(
-      body: Center(
-        child: Text(
-          "Selected Index: $_selectedIndex",
-          style: const TextStyle(fontSize: 20),
-        ),
+      // IndexedStack preserves state of each page when switching tabs
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _screens,
       ),
       bottomNavigationBar: _buildBottomNavBar(primaryColor),
     );
   }
 
-  // Bottom Navigation Bar
   Widget _buildBottomNavBar(Color primaryColor) {
     return CurvedNavigationBar(
       backgroundColor: Colors.transparent,
@@ -44,23 +48,12 @@ class _BottomNavBar extends State<BottomNavBar> {
       buttonBackgroundColor: primaryColor,
       height: 60,
       items: const <Widget>[
-        Icon(Icons.home, size: 30, color: Colors.white),
-        Icon(Icons.person, size: 30, color: Colors.white),
-        Icon(Icons.settings, size: 30, color: Colors.white),
+        Icon(Icons.home, size: 30, color: Colors.white),     // Home
+        Icon(Icons.flag, size: 30, color: Colors.white),     // My Journey
+        Icon(Icons.settings, size: 30, color: Colors.white), // Settings
       ],
       index: _selectedIndex,
-      onTap: (index) {
-        if (index == 2) {
-          // Settings icon tapped -> open SettingsPage
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const SettingsPage()),
-          );
-        } else {
-          // Handle other tabs
-          _onItemTapped(index);
-        }
-      },
+      onTap: _onItemTapped,
       letIndexChange: (index) => true,
     );
   }

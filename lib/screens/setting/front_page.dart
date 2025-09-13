@@ -44,24 +44,6 @@ class _SettingsPageState extends State<SettingsPage> {
     }
   }
 
-  // Bottom Navigation Bar
-  Widget _buildBottomNavBar(Color primaryColor) {
-    return CurvedNavigationBar(
-      backgroundColor: Colors.transparent,
-      color: const Color.fromRGBO(224, 124, 124, 1),
-      buttonBackgroundColor: primaryColor,
-      height: 60,
-      items: const <Widget>[
-        Icon(Icons.home, size: 30, color: Colors.white),
-        Icon(Icons.person, size: 30, color: Colors.white),
-        Icon(Icons.settings, size: 30, color: Colors.white),
-      ],
-      index: _selectedIndex,
-      onTap: _onItemTapped,
-      letIndexChange: (index) => true,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     const primaryColor = Color.fromRGBO(224, 124, 124, 1);
@@ -154,7 +136,6 @@ class _SettingsPageState extends State<SettingsPage> {
           ],
         ),
       ),
-      bottomNavigationBar: _buildBottomNavBar(primaryColor),
     );
   }
 }

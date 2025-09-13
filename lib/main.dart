@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:onboardx_tnb/firebase_options.dart';
 import 'package:onboardx_tnb/screens/home/bottom_nav_bar.dart';
+import 'package:onboardx_tnb/screens/home/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
