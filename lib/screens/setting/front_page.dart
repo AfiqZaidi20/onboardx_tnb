@@ -32,10 +32,10 @@ class _SettingsPageState extends State<SettingsPage> {
     setState(() => _selectedIndex = index);
     
     if (index == 0) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const ManageAccountPage()),
-      );
+      // Navigator.pushReplacement(
+      //   context,
+      //   MaterialPageRoute(builder: (context) =>  ManageAccountPage()),
+      // );
     } else if (index == 1) {
       Navigator.pushReplacement(
         context,
@@ -109,12 +109,12 @@ class _SettingsPageState extends State<SettingsPage> {
             HoverMenuItem(
               icon: Icons.account_circle,
               title: "Manage Your Account",
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const ManageAccountPage()),
-                );
-              },
+              // onTap: () {
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => ()),
+              //   );
+              // },
             ),
             HoverMenuItem(icon: Icons.phone_android, title: "Device Permission"),
             HoverMenuItem(icon: Icons.translate, title: "Language and Translations"),

@@ -47,4 +47,4 @@ class News1 extends StatelessWidget {
       ),
     );
   }
-}
+} //aa

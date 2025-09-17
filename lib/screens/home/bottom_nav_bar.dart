@@ -1,6 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:onboardx_tnb/screens/setting/front_page.dart';
+import 'package:onboardx_tnb/screens/setting/setting_manage_account.dart';
 import 'package:onboardx_tnb/screens/myjourney/my_journey_screen.dart';
 import 'package:onboardx_tnb/screens/home/home_screen.dart';
 
@@ -15,10 +15,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
 
   // Pastikan constructors pada HomeScreen, MyJourneyScreen, SettingsPage adalah const jika boleh
-  final List<Widget> _screens = const [
-    HomeScreen(),         // Icon(Icons.home) -> HomeScreen
-    MyJourneyScreen(),    // Icon(Icons.flag) -> MyJourneyScreen
-    SettingsPage(),       // Icon(Icons.settings) -> SettingsPage (front_page.dart)
+  final List<Widget> _screens = [
+    const HomeScreen(),         // Icon(Icons.home) -> HomeScreen
+    const MyJourneyScreen(),    // Icon(Icons.flag) -> MyJourneyScreen
+    const SettingScreen(),       // Icon(Icons.settings) -> SettingsPage (front_page.dart)
   ];
 
   void _onItemTapped(int index) {

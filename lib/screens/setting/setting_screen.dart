@@ -1,6 +1,4 @@
-// lib/screens/setting/setting_screen.dart
 import 'package:flutter/material.dart';
-import 'package:onboardx_tnb/services/theme_service.dart';
 
 class SettingScreen extends StatefulWidget {
   const SettingScreen({super.key});
@@ -10,16 +8,22 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
+  bool _darkMode = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // Let the app bar styling come from the theme (no hard-coded colors)
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: const Text(
+          'Settings',
+          style: TextStyle(color: Colors.black),
+        ),
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.transparent, // keep transparent if you want
+        backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+        foregroundColor: Colors.black,
         automaticallyImplyLeading: false,
+        
       ),
       body: ListView(
         children: [
@@ -46,34 +50,26 @@ class _SettingScreenState extends State<SettingScreen> {
               // Navigate to language selection screen
             },
           ),
-
-          // Listen to the themeNotifier to update the UI in real time
-          ValueListenableBuilder<ThemeMode>(
-            valueListenable: themeNotifier,
-            builder: (context, ThemeMode mode, _) {
-              final isDark = mode == ThemeMode.dark;
-              return SwitchListTile(
-                title: const Text('Dark Mode'),
-                // Icon color will now follow IconTheme (set in ThemeData)
-                secondary: Icon(
-                  isDark ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
-                ),
-                value: isDark,
-                onChanged: (value) {
-                  themeNotifier.value =
-                      value ? ThemeMode.dark : ThemeMode.light;
-                },
-              );
+          SwitchListTile(
+            title: const Text('Dark Mode'),
+            secondary: Icon(
+              _darkMode ? Icons.dark_mode_outlined : Icons.light_mode_outlined,
+            ),
+            value: _darkMode,
+            onChanged: (value) {
+              setState(() {
+                _darkMode = value;
+              });
+              // Implement dark mode toggle logic here
             },
           ),
-
           const SizedBox(height: 16),
           _buildSectionHeader('About'),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(
               children: [
-                Icon(Icons.info_outline, color: Theme.of(context).iconTheme.color),
+                const Icon(Icons.info_outline, color: Colors.grey),
                 const SizedBox(width: 16),
                 const Text('Version'),
                 const Spacer(),
@@ -99,7 +95,6 @@ class _SettingScreenState extends State<SettingScreen> {
         style: TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w600,
-          // keep using primary color for section headers — that works in both themes
           color: Theme.of(context).colorScheme.primary,
         ),
       ),
@@ -112,8 +107,8 @@ class _SettingScreenState extends State<SettingScreen> {
     required VoidCallback onTap,
   }) {
     return ListTile(
-      leading: Icon(icon), // color now follows theme's iconTheme
-      title: Text(title), // color follows theme text
+      leading: Icon(icon),
+      title: Text(title),
       trailing: const Icon(Icons.chevron_right),
       onTap: onTap,
     );
