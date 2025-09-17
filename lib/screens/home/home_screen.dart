@@ -3,7 +3,9 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:onboardx_tnb/screens/myjourney/my_journey_screen.dart';
+import 'package:onboardx_tnb/screens/news/news1.dart';
 import 'package:onboardx_tnb/screens/setting/front_page.dart';
+import 'package:onboardx_tnb/screens/news/news1.dart';
 
 
 class HomeScreen extends StatefulWidget {
@@ -359,6 +361,25 @@ class _HomeScreenState extends State<HomeScreen> {
   // News section
   // -----------------------------
   Widget _buildNewsSection() {
+    // List of news items (title + image path)
+    final List<Map<String, String>> newsItems = [
+      {
+        "title":
+            "New App Onboard X: Cleaner, easier to use, and faster to navigate.",
+        "image": "assets/images/news1.png",
+      },
+      {
+        "title":
+            "TNB introduces new smart meters to improve energy efficiency.",
+        "image": "assets/images/news2.png",
+      },
+      {
+        "title":
+            "Digital transformation in Malaysia: How Onboard X leads the way.",
+        "image": "assets/images/news3.png",
+      },
+    ];
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -375,40 +396,55 @@ class _HomeScreenState extends State<HomeScreen> {
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.only(left: 16),
-            itemCount: 3,
+            itemCount: newsItems.length,
             itemBuilder: (context, index) {
-              return Container(
-                width: 300,
-                margin: const EdgeInsets.only(right: 16),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  image: const DecorationImage(
-                    image: AssetImage("assets/images/news_background.jpg"),
-                    fit: BoxFit.cover,
-                  ),
-                ),
+              final news = newsItems[index];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => News1(
+                        title: news["title"]!,
+                        image: news["image"]!,
+                        content: news["content"]!,
+                      ),
+                    ),
+                  );
+                },
                 child: Container(
+                  width: 300,
+                  margin: const EdgeInsets.only(right: 16),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.black.withOpacity(0.7),
-                        Colors.transparent
-                      ],
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.center,
+                    image: DecorationImage(
+                      image: AssetImage(news["image"]!),
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  child: const Align(
-                    alignment: Alignment.bottomLeft,
-                    child: Padding(
-                      padding: EdgeInsets.all(12.0),
-                      child: Text(
-                        "New App Onboard X: Cleaner, easier to use, and faster to navigate.",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.black.withOpacity(0.7),
+                          Colors.transparent
+                        ],
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.center,
+                      ),
+                    ),
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: Text(
+                          news["title"]!,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ),
@@ -421,4 +457,8 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     );
   }
+
+  // News Detail Page renamed to News1
+
+
 }
